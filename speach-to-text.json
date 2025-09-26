@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "speedy-aileron-468116-e5",
+  "private_key_id": "3110a60b6ef8ad607ea976bb26c053600f70acc4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7b/2EirIZlF5f\nRV3q5vEcjX7bnIiZIVVmiRNS6nlZbKj7DRCQYN15BQCBxBypFlxwatT82vJNtQc/\nuIC5c4zdOBxtUKeDaBy5etRRc1BSedGDu19BCOF0dILs8SyTC6p79XRxGbXtqvQi\nhOHylXQYzvz7WG1h9kAU8pNMihTCh6jPHG/Cu/G+oaHbQNXYGZl9K2DVnQ/cyIJk\n8qosJQmeTt1hKvvnpMP6bokpN0cGZonM9AaC6QuRGh7mtlnO9IFFUc9LGvkbQf0y\nHoTZiD18amldobPNudSqy3T5dBs+aiCuIsxm7r4DxxWx3wzaP7EC+qfWxYwRA8ze\nRMnydd5xAgMBAAECggEAAJNDWKdBYiPp9n+wd8Qn8jaNwbcv3oj5lnSjghO0JNZy\nu+qC0LPz72Lyeg0T1F+vZRNUMXoz4JHXl+t4cJlD2miez1Bo67wfVJRDdVmaHbSM\nzf5+fIt590IhWUStjM9QSggrSHMtasJyScPEGtKN7tw5od7HAUugxx6dEPuJGsZk\n/ATdprkUHy4L0gWzgQxhPII+F+dQfJHNGUR38rZkv656yPxMJLSCjZY91D+YV/QE\nC1BSmf4YsDOjH2lBP12QOlSqrKhWHq2FcRDWSV8Donsw+ioRog/tkJcHmlQtaZDA\nEj6l13Cos0M5I8c1t/FK5OtGKJEeVz3GakEQrm13/QKBgQD8zaILMAsb+cV0xJ76\ndDlkr6v+XGCjB4a2DWVTMd4XHvMh/IyYiKxLmfajWJhANFDJFoTM6BRDCrACdBCU\nD9O+/e8tUGrrbSQ/pfGbddFBQluw6eA5FClm5Y7+Alh3O9emMwV8lJVKjkwdo4HH\nQbn1L2BU/SsojzOzT+yn52ymdwKBgQC9zsHVhqVoZ5Al36msG04ROLxOWOW359AY\nBydTxwQBa7ilP5pSJIYvR8h8vOeV8qKcfESRMhVWhzArENdWI7/H7dSVQ07Bolqu\noUnSeAkzLLPanowyAlUVHoINi+Eq1B7c1NJcsTa8yVPDnZMdb7G5sMTSKVnu+Is2\ndBuLprgUVwKBgQDVWYHRKUmm4YNoCWwV+LJbK/reXv3beMWSrPl/Xc2N+7u7ShUp\nweaOozBIKMPNI5muK4gGGjLHZaSnXWaEXlsYi9wnhP/HEkQORzEBP0xLZAJX6vkl\nksNiKIgmDLq2XdWgWNzfh9H6qt7IAK7NB8Y1izckYsjioQBD60bRaPkD/wKBgDBS\nrDydfA0ZmLRbvgnIJdbyl9ZmgY2RogQMBjIpD9cAwtCnYbWaAOOWpe9D9L3TOR0X\n8ij5FD+kSVodfoU6sr/GyAF8Ulev6uBcxbukvcrejaeSB+VPfLPUwY2LWDccLANS\n13+rymDD7OR3gJXU8u1wmJtc1b2mX2LsqnqiZmkfAoGADtwiOLv/X/Z70b8frVKW\nurwzhlmtHb3r2s+BKLWvo9d3YWE3/sLGB8N+w3MuKHUGuqXrKf24jrP7ZitfDJKC\nLROUc5cOXKFWxmd3HXW3vpSVEaxq4zvPnoiiyUYNBPGTpaLDu7iEZ0GnEHLL1mqP\ng5hHeyrqWtT0y2td612wnvY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cloud-speech-client@speedy-aileron-468116-e5.iam.gserviceaccount.com",
+  "client_id": "111313345950392108290",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloud-speech-client%40speedy-aileron-468116-e5.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

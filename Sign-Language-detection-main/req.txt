@@ -1,0 +1,6 @@
+numpy==1.26.4
+opencv-python==4.10.0.84      # أو بدّلها بـ opencv-contrib-python==4.10.0.84 إذا بدك ميزات contrib
+mediapipe==0.10.14
+cvzone==1.6.1
+tensorflow==2.15.0
+protobuf<4                     # لضمان توافق mediapipe/TF على ويندوز

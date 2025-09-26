@@ -1,0 +1,6 @@
+<svg width="400" height="225" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="225" fill="#3B82F6"/>
+  <circle cx="200" cy="112.5" r="30" fill="white" opacity="0.9"/>
+  <polygon points="185,95 185,130 220,112.5" fill="#3B82F6"/>
+  <text x="200" y="180" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">قصص تعليمية 1</text>
+</svg>

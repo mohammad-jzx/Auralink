@@ -1,0 +1,123 @@
+المطلوب: إضافة تسجيل الدخول باستخدام Google إلى مشروع Auralink. الفرونت React يفتح طبيعي بدون تسجيل دخول، وزر الدخول موجود داخل صفحة الإعدادات فقط. إن وُجد Backend Node، فعّل endpoint يتحقق من Firebase ID Token ويعمل جلسة كوكي (اختياري). نفّذ التالي بدقة وبلا تغيير على باقي المشروع: ================================== 1) التثبيت ================================== أضف هذه الحزم: - في الواجهة: `npm i firebase` - في الخادم (اختياري للتحقق): `npm i firebase-admin cookie-parser` ================================== 2) ملف تهيئة Firebase للواجهة ================================== أنشئ ملف: src/lib/firebase.ts المحتوى: - استورد initializeApp من firebase/app. - استورد getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence من firebase/auth. - استخدم هذا الـ config (لا تغيّره): const firebaseConfig = { apiKey: "AIzaSyBTB6DVVHdw_pBXdPbnM7TO65NZdpzB3P0", authDomain: "auralink-b9735.firebaseapp.com", projectId: "auralink-b9735", storageBucket: "auralink-b9735.firebasestorage.app", messagingSenderId: "396107375548", appId: "1:396107375548:web:984b3697161da16aed01b9", measurementId: "G-J3PKD6G181" }; - أنشئ app = initializeApp(firebaseConfig) - أنشئ وصدر: auth = getAuth(app) - أنشئ GoogleAuthProvider واضبطه على prompt=select_account - setPersistence(auth, browserLocalPersistence) - أنشئ وصدّر الدوال: googleSignIn() => signInWithPopup(auth, provider) googleSignOut() => signOut(auth) onUserChanged(cb) => onAuthStateChanged(auth, cb) ================================== 3) سياق المصادقة (AuthContext) ================================== أنشئ ملف: src/contexts/AuthContext.tsx - يوفّر { user, loading } - يستدعي onUserChanged من src/lib/firebase.ts - يلفّ children في <AuthProvider> عدّل src/main.tsx (أو الجذر المناسب) للفّ <App /> داخل <AuthProvider> بدون تغيير أي منطق آخر. ================================== 4) صفحة الإعدادات مع زر Google ================================== أنشئ صفحة: src/pages/Settings.tsx - استورد useAuth من AuthContext - استورد googleSignIn, googleSignOut من lib/firebase - إن لم يوجد user: اعرض زر "تسجيل الدخول باستخدام Google" - إن وُجد user: اعرض الاسم والصورة + زر "تسجيل الخروج" - استخدم عناصر بسيطة وتنسيق Tailwind إن كان متوفراً ================================== 5) ربط المسارات ================================== حدّث الموجه (App.tsx أو حيث يوجد Router) لإضافة: <Route path="/settings" element={<Settings />} /> لا تغيّر أي صفحات أخرى. لا تعمل Redirect للمستخدم عند فتح الموقع. ================================== 6) (اختياري) حماية خفيفة لمسارات محددة ================================== أنشئ مكوّن: src/components/ProtectedRoute.tsx - إن كان loading: لا تعرض شيئاً (أو سبينر صغير) - إن لم يوجد user: أعد التوجيه إلى "/settings" - وإلا اعرض children كما هو لا تفعّلها إلا على المسارات التي تحتاج ذلك لاحقاً. ================================== 7) (اختياري) التحقق في الخادم Node ================================== إذا يوجد خادم Node/Express، أضف ما يلي لإنشاء جلسة آمنة: - في الجذر الخادمي (مثلاً server/index.js أو src/server.ts): * ثبّت وفعّل cookie-parser * فعّل CORS لو احتجت * فعّل Firebase Admin كالتالي: - أنشئ ملف مفاتيح خدمة (Service Account JSON) من Firebase Console - خزّن قيمه في متغيرات بيئية بدل الملف، مثلاً: FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY (استبدل \n في المفتاح) - initializeApp من firebase-admin/app باستخدام هذه البيئة - getAuth من firebase-admin/auth أنشئ endpoint POST /api/session/login: - يستقبل { idToken } من الفرونت - يتحقق من idToken عبر adminAuth.verifyIdToken - على النجاح: أنشئ كوكي "session" httpOnly, sameSite="lax", secure في الإنتاج، مدة 7 أيام - أعد JSON { ok: true } أنشئ endpoint POST /api/session/logout: - امسح كوكي "session" - أعد JSON { ok: true } أنشئ middleware verifySession: - يقرأ كوكي "session" - يتحقق من الجلسة عبر adminAuth.verifyIdToken - إن فشل: 401 - استعمله لحماية أي route خادمي خاص لاحقاً ================================== 8) (اختياري) ربط الفرونت مع الخادم ================================== في src/lib/firebase.ts أو ملف مساعد جديد src/lib/session.ts: - أنشئ دالة sendIdTokenToBackend: * بعد نجاح googleSignIn() استخرج idToken بـ getIdToken من firebase/auth للمستخدم الحالي * أرسل POST إلى /api/session/login مع { idToken } وتضمين credentials:'include' - نادِ sendIdTokenToBackend مباشرة بعد googleSignIn() لإعداد الكوكي في الخادم. ================================== 9) عدم كسر أي شيء قائم ================================== - لا تعدّل مكونات/منطق الأقسام الحالية. - لا تنقل ملفات غير مذكورة. - كل إضافة تكون إضافية وآمنة. - التزم بمسارات الملفات كما طُلب. بعد الإنشاء: - أضف رابط "الإعدادات" في شريط التنقل إن لم يكن موجوداً، دون تغيير تصميم القائمة. - تأكد أن الموقع يعمل بدون تسجيل دخول، وأن الزر في /settings يدخل ويخرج بنجاح.
+
+
+
+المطلوب: إضافة تسجيل الدخول باستخدام Google إلى مشروع Auralink.
+الفرونت React يفتح طبيعي بدون تسجيل دخول، وزر الدخول موجود داخل صفحة الإعدادات فقط.
+إن وُجد Backend Node، فعّل endpoint يتحقق من Firebase ID Token ويعمل جلسة كوكي (اختياري).
+
+نفّذ التالي بدقة وبلا تغيير على باقي المشروع:
+
+==================================
+
+التثبيت
+==================================
+أضف هذه الحزم:
+في الواجهة: npm i firebase
+في الخادم (اختياري للتحقق): npm i firebase-admin cookie-parser
+==================================
+2) ملف تهيئة Firebase للواجهة
+أنشئ ملف: src/lib/firebase.ts
+المحتوى:
+
+استورد initializeApp من firebase/app.
+استورد getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence من firebase/auth.
+استخدم هذا الـ config (لا تغيّره):
+const firebaseConfig = {
+apiKey: "AIzaSyBTB6DVVHdw_pBXdPbnM7TO65NZdpzB3P0",
+authDomain: "auralink-b9735.firebaseapp.com",
+projectId: "auralink-b9735",
+storageBucket: "auralink-b9735.firebasestorage.app",
+messagingSenderId: "396107375548",
+appId: "1:396107375548:web:984b3697161da16aed01b9",
+measurementId: "G-J3PKD6G181"
+};
+
+أنشئ app = initializeApp(firebaseConfig)
+أنشئ وصدر: auth = getAuth(app)
+أنشئ GoogleAuthProvider واضبطه على prompt=select_account
+setPersistence(auth, browserLocalPersistence)
+أنشئ وصدّر الدوال:
+googleSignIn() => signInWithPopup(auth, provider)
+googleSignOut() => signOut(auth)
+onUserChanged(cb) => onAuthStateChanged(auth, cb)
+==================================
+3) سياق المصادقة (AuthContext)
+أنشئ ملف: src/contexts/AuthContext.tsx
+
+يوفّر { user, loading }
+يستدعي onUserChanged من src/lib/firebase.ts
+يلفّ children في <AuthProvider>
+عدّل src/main.tsx (أو الجذر المناسب) للفّ <App /> داخل <AuthProvider> بدون تغيير أي منطق آخر.
+
+==================================
+4) صفحة الإعدادات مع زر Google
+أنشئ صفحة: src/pages/Settings.tsx
+
+استورد useAuth من AuthContext
+استورد googleSignIn, googleSignOut من lib/firebase
+إن لم يوجد user: اعرض زر "تسجيل الدخول باستخدام Google"
+إن وُجد user: اعرض الاسم والصورة + زر "تسجيل الخروج"
+استخدم عناصر بسيطة وتنسيق Tailwind إن كان متوفراً
+==================================
+5) ربط المسارات
+حدّث الموجه (App.tsx أو حيث يوجد Router) لإضافة:
+<Route path="/settings" element={<Settings />} />
+لا تغيّر أي صفحات أخرى. لا تعمل Redirect للمستخدم عند فتح الموقع.
+
+==================================
+6) (اختياري) حماية خفيفة لمسارات محددة
+أنشئ مكوّن: src/components/ProtectedRoute.tsx
+
+إن كان loading: لا تعرض شيئاً (أو سبينر صغير)
+إن لم يوجد user: أعد التوجيه إلى "/settings"
+وإلا اعرض children كما هو
+لا تفعّلها إلا على المسارات التي تحتاج ذلك لاحقاً.
+==================================
+7) (اختياري) التحقق في الخادم Node
+إذا يوجد خادم Node/Express، أضف ما يلي لإنشاء جلسة آمنة:
+
+في الجذر الخادمي (مثلاً server/index.js أو src/server.ts):
+ثبّت وفعّل cookie-parser
+فعّل CORS لو احتجت
+فعّل Firebase Admin كالتالي:
+أنشئ ملف مفاتيح خدمة (Service Account JSON) من Firebase Console
+خزّن قيمه في متغيرات بيئية بدل الملف، مثلاً:
+FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY (استبدل \n في المفتاح)
+initializeApp من firebase-admin/app باستخدام هذه البيئة
+getAuth من firebase-admin/auth
+أنشئ endpoint POST /api/session/login:
+
+يستقبل { idToken } من الفرونت
+يتحقق من idToken عبر adminAuth.verifyIdToken
+على النجاح: أنشئ كوكي "session" httpOnly, sameSite="lax", secure في الإنتاج، مدة 7 أيام
+أعد JSON { ok: true }
+أنشئ endpoint POST /api/session/logout:
+
+امسح كوكي "session"
+أعد JSON { ok: true }
+أنشئ middleware verifySession:
+
+يقرأ كوكي "session"
+يتحقق من الجلسة عبر adminAuth.verifyIdToken
+إن فشل: 401
+استعمله لحماية أي route خادمي خاص لاحقاً
+==================================
+8) (اختياري) ربط الفرونت مع الخادم
+في src/lib/firebase.ts أو ملف مساعد جديد src/lib/session.ts:
+
+أنشئ دالة sendIdTokenToBackend:
+بعد نجاح googleSignIn() استخرج idToken بـ getIdToken من firebase/auth للمستخدم الحالي
+أرسل POST إلى /api/session/login مع { idToken } وتضمين credentials:'include'
+نادِ sendIdTokenToBackend مباشرة بعد googleSignIn() لإعداد الكوكي في الخادم.
+==================================
+9) عدم كسر أي شيء قائم
+لا تعدّل مكونات/منطق الأقسام الحالية.
+لا تنقل ملفات غير مذكورة.
+كل إضافة تكون إضافية وآمنة.
+التزم بمسارات الملفات كما طُلب.
+بعد الإنشاء:
+
+أضف رابط "الإعدادات" في شريط التنقل إن لم يكن موجوداً، دون تغيير تصميم القائمة.
+تأكد أن الموقع يعمل بدون تسجيل دخول، وأن الزر في /settings يدخل ويخرج بنجاح.
+

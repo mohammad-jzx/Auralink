@@ -1,0 +1,482 @@
+/* SignLanguageDetection.css - ملف التصميم العصري لنظام التعرف على لغة الإشارة */
+
+/* متغيرات CSS للألوان العصرية */
+:root {
+  --primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(45deg, #4ade80, #22c55e);
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --card-border: rgba(255, 255, 255, 0.2);
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --border-radius: 24px;
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* الأنماط الأساسية */
+.app-container {
+  background: var(--primary-bg);
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Decorations */
+.app-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* العنوان الرئيسي */
+.app-header {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--text-primary);
+  position: relative;
+  z-index: 10;
+}
+
+.app-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  background: linear-gradient(45deg, #ffffff, #f0f9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+  letter-spacing: -0.02em;
+}
+
+.app-subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin: 16px 0 0 0;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* الشبكة الرئيسية */
+.main-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+  z-index: 10;
+}
+
+/* البطاقات */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--border-radius);
+  padding: 32px;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--secondary-gradient);
+  transform: scaleX(0);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.35);
+}
+
+/* قسم الفيديو الرئيسي */
+.video-section {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.video-controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.additional-controls {
+  display: flex;
+  gap: 24px;
+  margin-top: 32px;
+  justify-content: center;
+  width: 100%;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.status-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ef4444;
+  transition: var(--transition);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+}
+
+.status-indicator.connected {
+  background: #4ade80;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+}
+
+.status-text {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* زر تشغيل/إيقاف الكاميرا */
+.camera-toggle-btn {
+  padding: 16px 28px;
+  border: none;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+  min-width: 180px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  letter-spacing: 0.5px;
+}
+
+.camera-toggle-btn.camera-off {
+  background: linear-gradient(45deg, #ef4444, #dc2626);
+  color: white;
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+.camera-toggle-btn.camera-on {
+  background: linear-gradient(45deg, #4ade80, #22c55e);
+  color: white;
+  box-shadow: 0 8px 25px rgba(74, 222, 128, 0.4);
+}
+
+.camera-toggle-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.camera-toggle-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.camera-toggle-btn:hover::before {
+  left: 100%;
+}
+
+/* حاوية الفيديو */
+.video-container {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16/9;
+  background: rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.video-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.video-stream {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+}
+
+/* حالة الكاميرا متوقفة */
+.camera-off-placeholder {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 60px 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.camera-off-icon {
+  font-size: 5rem;
+  margin-bottom: 24px;
+  opacity: 0.6;
+  filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+}
+
+.camera-off-placeholder p {
+  margin: 16px 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.camera-off-placeholder p:first-of-type {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* طبقة التحكم بالفيديو */
+.video-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  padding: 24px;
+  color: var(--text-primary);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.video-container:hover .video-overlay {
+  opacity: 1;
+}
+
+.video-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.video-info {
+  font-size: 1rem;
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.control-btn {
+  background: var(--secondary-gradient);
+  border: none;
+  border-radius: 16px;
+  padding: 16px 24px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: var(--transition);
+  backdrop-filter: blur(20px);
+  min-width: 160px;
+  box-shadow: 0 8px 25px rgba(74, 222, 128, 0.4);
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.control-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(74, 222, 128, 0.5);
+}
+
+.control-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-btn:hover::before {
+  left: 100%;
+}
+
+/* التذييل */
+.app-footer {
+  text-align: center;
+  margin-top: 60px;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.app-footer p {
+  margin: 8px 0;
+  opacity: 0.8;
+}
+
+/* الرسوم المتحركة */
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.1);
+  }
+}
+
+@keyframes titleGlow {
+  0% { 
+    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    filter: brightness(1);
+  }
+  100% { 
+    text-shadow: 0 4px 30px rgba(255,255,255,0.2);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes resultPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* الاستجابة للشاشات الصغيرة */
+@media (max-width: 1024px) {
+  .video-section {
+    max-width: 95%;
+  }
+  
+  .video-controls-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .camera-toggle-btn {
+    min-width: auto;
+  }
+  
+  .app-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 16px;
+  }
+  
+  .app-title {
+    font-size: 2rem;
+  }
+  
+  .card {
+    padding: 24px;
+  }
+  
+  .video-section {
+    max-width: 98%;
+  }
+  
+  .video-container {
+    min-height: 400px;
+  }
+  
+  .camera-toggle-btn {
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+  
+  .control-btn {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    min-width: 140px;
+  }
+  
+  .additional-controls {
+    gap: 20px;
+  }
+  
+  .connection-status {
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 1.75rem;
+  }
+  
+  .app-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .card {
+    padding: 20px;
+  }
+  
+  .video-controls-header {
+    gap: 16px;
+  }
+  
+  .camera-toggle-btn {
+    min-width: 160px;
+  }
+}

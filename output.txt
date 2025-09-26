@@ -1,0 +1,201 @@
+لإضافة تسجيل الدخول باستخدام Google إلى مشروع Auralink كما هو مطلوب، يمكنك اتباع الخطوات التالية بدقة:
+
+### 1) التثبيت
+
+أضف الحزم التالية:
+
+#### في الواجهة:
+```bash
+npm i firebase
+```
+
+#### في الخادم (إذا كان لديك):
+```bash
+npm i firebase-admin cookie-parser
+```
+
+### 2) ملف تهيئة Firebase للواجهة
+
+أنشئ ملفًا جديدًا باسم `src/lib/firebase.ts` واضف المحتوى التالي:
+
+```typescript
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBTB6DVVHdw_pBXdPbnM7TO65NZdpzB3P0",
+  authDomain: "auralink-b9735.firebaseapp.com",
+  projectId: "auralink-b9735",
+  storageBucket: "auralink-b9735.firebasestorage.app",
+  messagingSenderId: "396107375548",
+  appId: "1:396107375548:web:984b3697161da16aed01b9",
+  measurementId: "G-J3PKD6G181"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: 'select_account' });
+setPersistence(auth, browserLocalPersistence);
+
+export const googleSignIn = () => signInWithPopup(auth, provider);
+export const googleSignOut = () => signOut(auth);
+export const onUserChanged = (cb) => onAuthStateChanged(auth, cb);
+```
+
+### 3) سياق المصادقة (AuthContext)
+
+أنشئ ملفًا جديدًا باسم `src/contexts/AuthContext.tsx` واضف المحتوى التالي:
+
+```typescript
+import React, { createContext, useEffect, useState } from 'react';
+import { onUserChanged } from '../lib/firebase';
+
+export const AuthContext = createContext({ user: null, loading: true });
+
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onUserChanged((currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export default AuthProvider;
+```
+
+#### عدّل `src/main.tsx` (أو الجذر المناسب) للفّ <App /> داخل <AuthProvider>:
+
+```typescript
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import AuthProvider from './contexts/AuthContext';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <AuthProvider>
+    <App />
+  </AuthProvider>
+);
+```
+
+### 4) صفحة الإعدادات مع زر Google
+
+أنشئ صفحة جديدة باسم `src/pages/Settings.tsx` واضف المحتوى التالي:
+
+```typescript
+import React from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { googleSignIn, googleSignOut } from '../lib/firebase';
+
+const Settings = () => {
+  const { user } = useAuth();
+
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      {!user ? (
+        <button onClick={googleSignIn} className="bg-blue-500 text-white px-4 py-2 rounded">
+          تسجيل الدخول باستخدام Google
+        </button>
+      ) : (
+        <div className="flex flex-col items-center">
+          <img src={user.photoURL} alt={user.displayName} className="rounded-full h-20 w-20 mb-4" />
+          <h1 className="text-xl">{user.displayName}</h1>
+          <button onClick={googleSignOut} className="bg-red-500 text-white px-4 py-2 rounded mt-4">
+            تسجيل الخروج
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Settings;
+```
+
+### 5) ربط المسارات
+
+قم بتحديث الموجه (في `App.tsx` أو حيث يوجد Router) لإضافة:
+
+```typescript
+<Route path="/settings" element={<Settings />} />
+```
+
+### 6) (اختياري) حماية خفيفة لمسارات محددة
+
+أنشئ مكونًا جديدًا باسم `src/components/ProtectedRoute.tsx`:
+
+```typescript
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) return <div>Loading...</div>;
+
+  if (!user) return <Navigate to="/settings" />;
+
+  return children;
+};
+
+export default ProtectedRoute;
+```
+
+### 7) (اختياري) التحقق في الخادم Node
+
+إذا كان لديك خادم Node/Express، يمكنك إعداد التحقق كما هو موضح في الخطوات السابقة ولكن سأقدم لك لفائف لكل شيء له علاقة بالخادم. يجب أن تعدل على ملفات الخادم.
+
+### 8) (اختياري) ربط الفرونت مع الخادم
+
+في `src/lib/firebase.ts` أو ملف جديد باسم `src/lib/session.ts`:
+
+```typescript
+export const sendIdTokenToBackend = async (idToken) => {
+  await fetch('/api/session/login', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ idToken }),
+  });
+};
+```
+
+ثم استخدم هذه الدالة في `googleSignIn()`:
+
+```javascript
+import { sendIdTokenToBackend } from './session';
+
+export const googleSignIn = async () => {
+  const result = await signInWithPopup(auth, provider);
+  const idToken = await result.user.getIdToken();
+  await sendIdTokenToBackend(idToken);
+};
+```
+
+### 9) عدم كسر أي شيء قائم
+
+تأكد من أنك لم تقم بتعديل أي مكون حالي أو منطق موجود. اتبع المبادئ التوجيهية بدقة مع الحفاظ على الهيكل الحالي.
+
+### بعد الإنشاء:
+
+- أضف رابط "الإعدادات" في شريط التنقل إذا لم يكن موجودًا، دون تغيير تصميم القائمة.
+- اختبر الموقع جيدًا وتأكد من أن كل شيء يعمل بشكل صحيح.
+
+بهذه الطريقة، ستتمكن من إضافة ميزة تسجيل الدخول باستخدام Google إلى مشروع Auralink كما هو مطلوب.

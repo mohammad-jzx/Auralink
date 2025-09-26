@@ -1,0 +1,27 @@
+# Sign Language Video Placeholders
+
+This directory should contain video files for sign language demonstrations:
+
+- lesson-1.mp4 (Basic greetings lesson video)
+- hello.mp4 (Hello sign demonstration)
+- thankyou.mp4 (Thank you sign demonstration)
+- please.mp4 (Please sign demonstration)
+- yes.mp4 (Yes sign demonstration)
+- no.mp4 (No sign demonstration)
+- sorry.mp4 (Sorry sign demonstration)
+- good.mp4 (Good sign demonstration)
+- bad.mp4 (Bad sign demonstration)
+- help.mp4 (Help sign demonstration)
+- water.mp4 (Water sign demonstration)
+- food.mp4 (Food sign demonstration)
+- home.mp4 (Home sign demonstration)
+- school.mp4 (School sign demonstration)
+- friend.mp4 (Friend sign demonstration)
+- family.mp4 (Family sign demonstration)
+- love.mp4 (Love sign demonstration)
+- happy.mp4 (Happy sign demonstration)
+- sad.mp4 (Sad sign demonstration)
+- work.mp4 (Work sign demonstration)
+- play.mp4 (Play sign demonstration)
+
+TODO: Replace with actual sign language demonstration videos on Cursor

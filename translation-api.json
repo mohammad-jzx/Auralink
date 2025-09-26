@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "speedy-aileron-468116-e5",
+  "private_key_id": "37a080bb2c823c0a301249e7c08d99240d967639",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDz/kz7QDJbVa6w\nud+Icit+NIXLXvE0iXGoQpIzZxzIe1+m7tK4B5BTpnvRW0wHbP0I/icuFfs9QD6Z\nP6mCnTuUvFomYIY9u2H9J2wUsjdqldLZj9DnxARBujxOQKjworRHEcEib5D4eb3r\nJzJp2xywBe19ksCpHYrYcziZne9bfAc/tUQs9DsCJGld6Gadn7v9t8JZzCR35Ip6\nIdt6Qu5BFdzQv2GR634gGEIpmIz6ytDwwKpGAoMH2pSh3eWKm1WdI73Ck2d0q2B1\n6DM/+SvqgEe3kk9wm97B4XOc6Bzd8WyOdj6QlYoNzhfpul5aORxXSyRXY6tmIuF9\nlgPTu7HJAgMBAAECggEAPEPRSVSpq3gOGh4K6YWDmxxHeLw2WQrivRPWTyZ2jEk2\nzsFZ4DUUD6lFF2iUrpfbpus5i69HuzEBVTJNgNKruvjLzoNUXO6JzTC9yB3dxLCF\nYBHe4EQA5iglCZH8eFVDsHMg8Eu8s7bEM08e61kArLSGHJhRCGRg3UYWUpEZJA/S\nsMdwIzo70nE+wrGX5zGVuXKQ9PbUmNblPwLOmCO/knIVlmNEdwl7BfgedmLybF8z\n8ZSyySiYygMIkui5zpwL2Xz1EP8kXLCSjWrAFCaozc1WjSrwH0XuaCaoWOq5JBcw\nbjVRoOXq1tax+PRB+0KPhheABd1aTvS7aAfcos6wZQKBgQD/EmFgTW2+Y3ATapsX\nGQSc2T0MAlQBAAtFQHC32XOK8dpUltVzWVNRtonHbddvnXShd/DZCa/rwIofjnSU\n/hH2o+EqPwdYr7SE9N78C6W+wlPJoatB2WtjdBs26APMrJ3qCL9Fm3O1yz3mBXB8\nr9vBgYoXqYfg2mBprpqVjKJ9lQKBgQD04ZmSbHhLy+gHDP3e6krGd76GMVO7TO9f\n1d8OXaiUJ54fLhcp3b0UoaZaZlTeWll/ZF5nG6KSXcc52pRnJaq2o6AWxkFMgnCb\n01DzwV4RDCnQcAw4sds/jsXMXTqJBsptAv8eZ2HgNEIUgVnN33JfT+h7cesEqjHe\n1affvToOZQKBgEdOSxyR6LkNsVosNjkJzGlQrak6yWMSMRRmBFzRFGTmYaO+GuPJ\nN+qi/fdbdJuGSAGPtyvlcmGUjMhvmZXBRSJPA/Y8coBPdkao8eFCHE6soqG+aVLa\nRhQidC0wRUelhevUECyUXY+XxrEUGjMxMlzxKrqcsRih08wXfK2MCCzVAoGAGlTT\n1ZnSSZwwY+mytrCMv9CKbRWKwl4gczalGH9brCqiZwnmtbrBJSHIqHnOcGZYr0kU\nmZOwJHru/DqTsI+tTpxDj49b4CU6hJbxYnSNb9nV+TLDLal6QNhSTopLzAYt6BDl\na9iD/r6/yEKsbGW1f6gxAG0cb1D5sdNZjMZlIr0CgYBeOewV/nFW7mLsUIQ1hDNG\nkMb61Bh+SUZ8+5TiLp6UlupzkZ32O+IJyTcmH2Ds9D297at6z2LUPdctFFuHZKdq\npxdb3jxLg7PE9Q6Vajj7kkkLOLWAf8Cf+in3rqCDLGnf0gQWKQFiPLaDLpQG91wz\niGP6qfN6sqotHGou1HHvrw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "cloud-translation-api-user@speedy-aileron-468116-e5.iam.gserviceaccount.com",
+  "client_id": "102906446253101423573",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloud-translation-api-user%40speedy-aileron-468116-e5.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

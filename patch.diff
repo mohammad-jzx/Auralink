@@ -1,0 +1,38 @@
+﻿*** Begin Patch
+*** Update File: src/components/Header.tsx
+@@
+-    AlertTriangle,
+-    Globe,
+-    GraduationCap,
+-    Menu,
+-    MessageSquare,
+-    Settings,
+-    Users,
+-    X
++    AlertTriangle,
++    Eye,
++    Globe,
++    GraduationCap,
++    Menu,
++    MessageSquare,
++    Settings,
++    Users,
++    X
+ } from 'lucide-react';
+@@
+-const navItems = [
+-  { href: '/learning', label: 'O\u0015U,O�O1U,U. O\u0015U,O�U?O\u0015O1U,US', icon: GraduationCap },
+-  { href: '/live-translate', label: 'O\u0015U,O�O�O�U.Oc O\u0015U,U.O"O\u0015O'O�Oc', icon: MessageSquare },
+-  { href: '/forum', label: 'O\u0015U,U.U+O�O_U%', icon: Users },
+-  { href: '/emergency', label: 'O\u0015U,O�U^O\u0015O�O�', icon: AlertTriangle },
+-  { href: '/settings', label: 'O\u0015U,O�O1O_O\u0015O_O\u0015O�', icon: Settings },
+-];
++const navItems = [
++  { href: '/learning', label: 'التعلم التفاعلي', icon: GraduationCap },
++  { href: '/live-translate', label: 'الترجمة المباشرة', icon: MessageSquare },
++  { href: '/eye-tracking', label: 'تتبع حركة العين', icon: Eye },
++  { href: '/forum', label: 'المنتدى', icon: Users },
++  { href: '/emergency', label: 'الطوارئ', icon: AlertTriangle },
++  { href: '/settings', label: 'الإعدادات', icon: Settings },
++];
+*** End Patch
