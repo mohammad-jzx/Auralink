@@ -1,4 +1,5 @@
-# Auralink - جسر التواصل بين العالمين
+<img width="1463" height="265" alt="image" src="https://github.com/user-attachments/assets/16cfc432-dc9c-4ff7-83f0-4ade9ff80af8" /># Auralink - جسر التواصل بين العالمين
+AURALINK PRESENTATION : https://gamma.app/docs/Auralink-Bridging-Silence-with-Smart-Communication-jus4gsga521dvzr
 
 Auralink هو تطبيق ويب متطور يسهّل التواصل بين متعلمي لغة الإشارة والناطقين من خلال تقنيات الذكاء الاصطناعي المتقدمة.
 
