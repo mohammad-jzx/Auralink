@@ -158,9 +158,6 @@ export function MyComponent({ className, children }: MyComponentProps) {
 - [ ] مشاركة المحتوى
 - [ ] تحليلات الاستخدام
 
-- البريد الإلكتروني: info@auralink.com
-- الهاتف: +966 50 123 4567
-
 ---
 
 **تم تطويره بـ ❤️ للمجتمع العربي**
