@@ -1,25 +1,30 @@
-# Logs
-logs
+# Python
+.venv/
+venv/
+env/
+Env/
+__pycache__/
+*.pyc
+
+# Node (if any)
+node_modules/
+
+# Big/derived stuff
+build/
+dist/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.onnx
+*.pkl
 
-node_modules
-dist
-dist-ssr
-*.local
-.env
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# IDE
+.vscode/
+.idea/
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
